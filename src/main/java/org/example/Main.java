@@ -11,26 +11,27 @@ public class Main {
         nums = main.plusOne(nums);
     }
     public int[] plusOne(int[] digits) {
+        if (digits == null || digits.length == 0) {
+            return digits;
+        }
+
+        int carry = 1;
         int i = digits.length - 1;
-        int addMore = 1;
 
-        while (i >= 0) {
-            if (addMore == 0) {
-                break;
-            }
-            int resultOfSum = digits[i] + addMore;
+        while (i >= 0 && carry > 0) {
+            int sum = digits[i] + carry;
+            digits[i] = sum % 10;
+            carry     = sum / 10;
+            i--;
+        }
 
-            if (resultOfSum > 9) {
-                digits[i--] = resultOfSum % 10;
-                continue;
-            }
-            addMore--;
-            digits[i--] = resultOfSum;
+        if (carry > 0) {
+            int[] result = new int[digits.length + 1];
+            result[0] = carry;
+            System.arraycopy(digits, 0, result, 1, digits.length);
+            return result;
         }
-        if (addMore == 1) {
-            digits = new int[digits.length + 1];
-            digits[0] = 1;
-        }
+
         return digits;
     }
 
