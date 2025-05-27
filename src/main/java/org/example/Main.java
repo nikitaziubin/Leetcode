@@ -1,14 +1,59 @@
 package org.example;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
-        int[] num1 = new int[] {1,2,4,5,6,0};
-        int[] num2 = new int[] {3};
-        merge( num1, 5, num2, 1 );
+        int[] nums = {1,2,3};
+        Main main = new Main();
+        nums = main.plusOne(nums);
+
+
+    }
+    public int[] plusOne(int[] digits) {
+        int i = digits.length - 1;
+        int addMore = 1;
+
+        while (i >= 0) {
+            if (addMore == 0) {
+                break;
+            }
+            int resultOfSum = digits[i] + addMore;
+
+            if (resultOfSum > 9) {
+                digits[i--] = resultOfSum % 10;
+                continue;
+            }
+            addMore--;
+            digits[i--] = resultOfSum;
+        }
+        if (addMore == 1) {
+            digits = new int[digits.length + 1];
+            digits[0] = 1;
+        }
+        return digits;
+    }
+
+    public int[] evenOdd(int[] nums) {
+        int even = 0; int odd = nums.length - 1;
+        while (even < odd) {
+            if (nums[even] % 2 == 0) {
+                even++;
+            }
+            else {
+                if (nums[odd] % 2 == 0) {
+                    int temp = nums[odd];
+                    nums[odd] = nums[even];
+                    nums[even] = temp;
+                }
+                else {
+                    odd--;
+                }
+            }
+        }
+        return nums;
     }
     public static int maxProfit(int[] prices) {
         if (prices == null || prices.length == 0) return 0;
@@ -26,7 +71,6 @@ public class Main {
         }
         return profit;
     }
-
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
         if (n == 0)
         {
