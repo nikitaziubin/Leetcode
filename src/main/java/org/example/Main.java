@@ -9,8 +9,6 @@ public class Main {
         int[] nums = {1,2,3};
         Main main = new Main();
         nums = main.plusOne(nums);
-
-
     }
     public int[] plusOne(int[] digits) {
         int i = digits.length - 1;
