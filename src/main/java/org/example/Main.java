@@ -7,11 +7,26 @@ import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
-        int[] nums = {-1};
-        //int[] nums = {1, 2,3,4,5,6,7};
+        //int[] nums = {-1};
+        int[] nums = {1,2,3,4,5};
         Main main = new Main();
-        int a = main.maxSubArray(nums);
+        int a = main.maxProfit122(nums);
         System.out.println(a);
+    }
+
+    public int maxProfit122(int[] prices) {
+        int minPrice = prices[0];
+        int totalProfit = 0;
+        for (int i = 1; i < prices.length; ++i) {
+            if (minPrice > prices[i]) {
+                minPrice = prices[i];
+            }
+            else if (minPrice < prices[i]) {
+                totalProfit += prices[i] - minPrice;
+                minPrice = prices[i];
+            }
+        }
+        return totalProfit;
     }
 
     public int maxSubArray(int[] nums) {
@@ -25,8 +40,6 @@ public class Main {
         }
         return bestResult;
     }
-
-
     public int maxProfit(int[] prices) {
         if (prices == null || prices.length == 0 || prices.length == 1) return 0;
         int currMinPrice = prices[0];
