@@ -7,13 +7,24 @@ import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
-        int[] nums = {3,2,6,5,0,3};
+        int[] nums = {-1};
         //int[] nums = {1, 2,3,4,5,6,7};
         Main main = new Main();
-        int a = main.maxProfit(nums);
+        int a = main.maxSubArray(nums);
         System.out.println(a);
     }
 
+    public int maxSubArray(int[] nums) {
+        int currResult = nums[0];
+        int bestResult = currResult;
+        for (int i = 1; i < nums.length; i++) {
+            currResult = Math.max(currResult + nums[i], nums[i]);
+            if (currResult > bestResult) {
+                bestResult = currResult;
+            }
+        }
+        return bestResult;
+    }
 
 
     public int maxProfit(int[] prices) {
