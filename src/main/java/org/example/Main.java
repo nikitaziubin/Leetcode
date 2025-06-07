@@ -1,14 +1,77 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
-        int[] nums = {1,2,3};
+        int[] nums = {3,2,6,5,0,3};
+        //int[] nums = {1, 2,3,4,5,6,7};
         Main main = new Main();
-        nums = main.plusOne(nums);
+        int a = main.maxProfit(nums);
+        System.out.println(a);
+    }
+
+
+
+    public int maxProfit(int[] prices) {
+        if (prices == null || prices.length == 0 || prices.length == 1) return 0;
+        int currMinPrice = prices[0];
+        int currMaxPrice = prices[1];
+        int currProfit = currMaxPrice - currMinPrice;
+
+        int bestProfit = currProfit;
+        int i = 2;
+        while (i < prices.length ) {
+            if (currProfit < 0){
+                currMinPrice = currMaxPrice;
+                currMaxPrice = prices[i];
+            }
+            else if (prices[i] > currMaxPrice) {
+                currMaxPrice = prices[i];
+            }
+            else if (prices[i] < currMinPrice && i + 1 != prices.length) {
+                currMinPrice = prices[i];
+                currMaxPrice = prices[++i];
+            }
+            currProfit = currMaxPrice - currMinPrice;
+
+            if (currProfit > bestProfit) {
+                bestProfit = currProfit;
+            }
+            i++;
+        }
+        if (bestProfit < 0)
+            bestProfit = 0;
+        return bestProfit;
+    }
+    public int removeDuplicates(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return 0;
+        int insertPos = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[i-1]) {
+                nums[insertPos++] = nums[i];
+            }
+        }
+        return insertPos;
+    }
+
+    public String multiply(String num1, String num2) {
+        int firstNumCount = 0;
+        int SecondNumCount = 0;
+        int firstNumLength = num1.length();
+        int SecondNumLength = num2.length();
+        int result = 0;
+        int carry = 0;
+        while (firstNumCount < firstNumLength + SecondNumLength) {
+
+        }
+
+
+        return null;
     }
     public int[] plusOne(int[] digits) {
         if (digits == null || digits.length == 0) {
@@ -21,7 +84,7 @@ public class Main {
         while (i >= 0 && carry > 0) {
             int sum = digits[i] + carry;
             digits[i] = sum % 10;
-            carry     = sum / 10;
+            carry = sum / 10;
             i--;
         }
 
@@ -36,46 +99,29 @@ public class Main {
     }
 
     public int[] evenOdd(int[] nums) {
-        int even = 0; int odd = nums.length - 1;
+        int even = 0;
+        int odd = nums.length - 1;
         while (even < odd) {
             if (nums[even] % 2 == 0) {
                 even++;
-            }
-            else {
+            } else {
                 if (nums[odd] % 2 == 0) {
                     int temp = nums[odd];
                     nums[odd] = nums[even];
                     nums[even] = temp;
-                }
-                else {
+                } else {
                     odd--;
                 }
             }
         }
         return nums;
     }
-    public static int maxProfit(int[] prices) {
-        if (prices == null || prices.length == 0) return 0;
-        int dayToSell = prices[0];
-        int profit = 0;
-        for(int i = 1; i < prices.length; i++) {
-            if (prices[i] - dayToSell < 0){
-                dayToSell = prices[i];
-                continue;
-            }
-            if (prices[i] - dayToSell > profit)
-            {
-                profit = prices[i] - dayToSell;
-            }
-        }
-        return profit;
-    }
+
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
-        if (n == 0)
-        {
+        if (n == 0) {
             return;
         }
-        if (m == 0){
+        if (m == 0) {
             for (int i = 0; i < n; i++) {
                 nums1[i] = nums2[i];
             }
@@ -86,12 +132,12 @@ public class Main {
         int count = 0;
         int iters = Math.max(m, n);
         int lastIters = Math.min(m, n);
-        while (count != iters ) {
+        while (count != iters) {
 
-            if (num1Counter < 0){
+            if (num1Counter < 0) {
                 num1Counter = 0;
             }
-            if (num2Counter < 0){
+            if (num2Counter < 0) {
                 num2Counter = 0;
             }
 
@@ -111,8 +157,7 @@ public class Main {
         num1Counter = (nums1.length - 1) / 2;
         num2Counter = (nums1.length - 1) / 2 + 1;
         for (int i = 0; i < lastIters; i++) {
-            if (nums1[num1Counter] > nums1[num2Counter])
-            {
+            if (nums1[num1Counter] > nums1[num2Counter]) {
                 int temp = nums1[num1Counter];
                 nums1[num1Counter] = nums1[num2Counter];
                 nums1[num2Counter] = temp;
