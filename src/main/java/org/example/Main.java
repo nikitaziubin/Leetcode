@@ -7,11 +7,53 @@ import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
-        //int[] nums = {-1};
-        int[] nums = {1,2,3,4,5};
+        //int[] nums = {3,3,5,0,0,3,1,4};
+        int[] nums = {14,9,10,12,4,8,1,16};
+        //int[] nums = {2, 1, 4, 5, 2, 9, 7};
+        //int[] nums = {1,2,3,4,5};
         Main main = new Main();
-        int a = main.maxProfit122(nums);
+        int a = main.countPrimes(499979);
         System.out.println(a);
+    }
+    public int countPrimes(int n) {
+        if (n <= 1) return 0;
+        if (n == 2) return 0;
+        List<Integer> primes = new ArrayList<>(List.of(2));
+        for (int i = 3; i < n; i++) {
+            List<Integer> newPrimes = checkPrimes(i, primes);
+            if (newPrimes.size() - 1 == primes.size()) {
+                primes = newPrimes;
+            }
+
+        }
+        return primes.size();
+    }
+    public List<Integer> checkPrimes(int n, List<Integer> primesNumbers) {
+        for (int prime : primesNumbers){
+            if (n%prime == 0){
+                return primesNumbers;
+            }
+        }
+        primesNumbers.add(n);
+        return primesNumbers;
+    }
+    public int maxProfit123(int[] prices) {
+        if (prices == null || prices.length < 2) return 0;
+        int firstbuy = Integer.MIN_VALUE;
+        int firstsell = 0;
+        int secondBuy = Integer.MIN_VALUE;
+        int secondsell = 0;
+        for (int price : prices) {
+            // first buy
+            firstbuy = Math.max(firstbuy, -price);
+            // first sell
+            firstsell = Math.max(firstsell, firstbuy + price);
+            // second buy
+            secondBuy = Math.max(secondBuy, firstsell - price);
+            // second sell
+            secondsell = Math.max(secondsell, secondBuy + price);
+        }
+        return secondsell;
     }
 
     public int maxProfit122(int[] prices) {
@@ -20,8 +62,7 @@ public class Main {
         for (int i = 1; i < prices.length; ++i) {
             if (minPrice > prices[i]) {
                 minPrice = prices[i];
-            }
-            else if (minPrice < prices[i]) {
+            } else if (minPrice < prices[i]) {
                 totalProfit += prices[i] - minPrice;
                 minPrice = prices[i];
             }
@@ -40,6 +81,7 @@ public class Main {
         }
         return bestResult;
     }
+
     public int maxProfit(int[] prices) {
         if (prices == null || prices.length == 0 || prices.length == 1) return 0;
         int currMinPrice = prices[0];
@@ -48,15 +90,13 @@ public class Main {
 
         int bestProfit = currProfit;
         int i = 2;
-        while (i < prices.length ) {
-            if (currProfit < 0){
+        while (i < prices.length) {
+            if (currProfit < 0) {
                 currMinPrice = currMaxPrice;
                 currMaxPrice = prices[i];
-            }
-            else if (prices[i] > currMaxPrice) {
+            } else if (prices[i] > currMaxPrice) {
                 currMaxPrice = prices[i];
-            }
-            else if (prices[i] < currMinPrice && i + 1 != prices.length) {
+            } else if (prices[i] < currMinPrice && i + 1 != prices.length) {
                 currMinPrice = prices[i];
                 currMaxPrice = prices[++i];
             }
@@ -71,12 +111,13 @@ public class Main {
             bestProfit = 0;
         return bestProfit;
     }
+
     public int removeDuplicates(int[] nums) {
         if (nums == null || nums.length == 0)
             return 0;
         int insertPos = 1;
         for (int i = 1; i < nums.length; i++) {
-            if (nums[i] != nums[i-1]) {
+            if (nums[i] != nums[i - 1]) {
                 nums[insertPos++] = nums[i];
             }
         }
@@ -97,6 +138,7 @@ public class Main {
 
         return null;
     }
+
     public int[] plusOne(int[] digits) {
         if (digits == null || digits.length == 0) {
             return digits;
