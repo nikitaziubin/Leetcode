@@ -8,12 +8,19 @@ import java.util.Stack;
 public class Main {
     public static void main(String[] args) {
         //int[] nums = {3,3,5,0,0,3,1,4};
-        int[] nums = {14,9,10,12,4,8,1,16};
+        int[] nums = {0,2,1,5,3,4};
         //int[] nums = {2, 1, 4, 5, 2, 9, 7};
         //int[] nums = {1,2,3,4,5};
         Main main = new Main();
-        int a = main.countPrimes(499979);
+        int[] a = main.buildArray(nums);
         System.out.println(a);
+    }
+    public int[] buildArray(int[] nums) {
+        int[] ans = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            ans[i] = nums[nums[i]];
+        }
+        return ans;
     }
     public int countPrimes(int n) {
         if (n < 2) return 0;
