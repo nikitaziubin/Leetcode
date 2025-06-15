@@ -16,6 +16,22 @@ public class Main {
         System.out.println(a);
     }
     public int countPrimes(int n) {
+        if (n < 2) return 0;
+        boolean[] isPrime = new boolean[n];
+        Arrays.fill(isPrime, true);
+        int count = 0;
+        for (int i = 2; i < n; i++) {
+            if (!isPrime[i]) continue;
+            count++;
+
+            for (long j = (long)i * i; j < n; j += i) {
+                isPrime[(int)j] = false;
+            }
+        }
+        return count;
+    }
+
+    public int countPrimes1(int n) {
         if (n <= 1) return 0;
         if (n == 2) return 0;
         List<Integer> primes = new ArrayList<>(List.of(2));
@@ -24,7 +40,6 @@ public class Main {
             if (newPrimes.size() - 1 == primes.size()) {
                 primes = newPrimes;
             }
-
         }
         return primes.size();
     }
